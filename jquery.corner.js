@@ -1,7 +1,7 @@
 /*!
  * jQuery corner plugin: simple corner rounding
  * Examples and documentation at: http://jquery.malsup.com/corner/
- * version 1.94 (02/26/2009)
+ * version 1.95 (02/26/2009)
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
@@ -24,15 +24,15 @@
  * @author Dave Methvin (http://methvin.com/jquery/jq-corner.html)
  * @author Mike Alsup   (http://jquery.malsup.com/corner/)
  */
-(function($) { 
+;(function($) { 
 
 var expr = (function() {
     var div = document.createElement('div');
-    try { div.setExpression('width','0px'); }
+    try { div.style.setExpression('width','0+0'); }
     catch(e) { return false; }
     return true;
 })();
-
+    
 function sz(el, p) { 
     return parseInt($.css(el,p))||0; 
 };
@@ -88,6 +88,7 @@ $.fn.corner = function(o) {
         }
         return this;
 	}
+
     o = (o||"").toLowerCase();
     var keep = /keep/.test(o);                       // keep borders?
     var cc = ((o.match(/cc:(#[0-9a-f]+)/)||[])[1]);  // corner color
