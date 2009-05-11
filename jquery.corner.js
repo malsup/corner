@@ -1,7 +1,7 @@
 /*!
  * jQuery corner plugin: simple corner rounding
  * Examples and documentation at: http://jquery.malsup.com/corner/
- * version 1.95 (02/26/2009)
+ * version 1.96 (11-MAY-2009)
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
@@ -170,6 +170,9 @@ $.fn.corner = function(o) {
     });
 };
 
-$.fn.uncorner = function() { return $('.jquery-corner', this).remove(); };
+$.fn.uncorner = function() { 
+	$('div.jquery-corner', this).remove();
+	return this;
+};
     
 })(jQuery);
