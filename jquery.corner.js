@@ -1,7 +1,7 @@
 /*!
  * jQuery corner plugin: simple corner rounding
  * Examples and documentation at: http://jquery.malsup.com/corner/
- * version 1.97 (27-MAY-2009)
+ * version 1.98 (02-JUN-2009)
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
@@ -44,9 +44,9 @@ function hex2(s) {
 function gpc(node) {
     for ( ; node && node.nodeName.toLowerCase() != 'html'; node = node.parentNode ) {
         var v = $.css(node,'backgroundColor');
-        if ( v.indexOf('rgb') >= 0 ) { 
-            if (v == 'rgba(0, 0, 0, 0)')
-                continue;
+        if (v == 'rgba(0, 0, 0, 0)')
+            continue; // webkit
+        if (v.indexOf('rgb') >= 0) { 
             var rgb = v.match(/\d+/g); 
             return '#'+ hex2(rgb[0]) + hex2(rgb[1]) + hex2(rgb[2]);
         }
