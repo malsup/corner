@@ -45,7 +45,7 @@ function gpc(node) {
     for ( ; node && node.nodeName.toLowerCase() != 'html'; node = node.parentNode ) {
         var v = $.css(node,'backgroundColor');
         if ( v.indexOf('rgb') >= 0 ) { 
-            if ($.browser.safari && v == 'rgba(0, 0, 0, 0)')
+            if (v == 'rgba(0, 0, 0, 0)')
                 continue;
             var rgb = v.match(/\d+/g); 
             return '#'+ hex2(rgb[0]) + hex2(rgb[1]) + hex2(rgb[2]);
