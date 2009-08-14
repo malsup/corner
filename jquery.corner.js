@@ -27,7 +27,7 @@
 ;(function($) { 
 
 var expr = (function() {
-	if (! $.browser.msie) return false;
+    if (! $.browser.msie) return false;
     var div = document.createElement('div');
     try { div.style.setExpression('width','0+0'); }
     catch(e) { return false; }
@@ -80,7 +80,7 @@ function getWidth(fx, i, width) {
 
 $.fn.corner = function(o) {
     // in 1.3+ we can fix mistakes with the ready state
-	if (this.length == 0) {
+    if (this.length == 0) {
         if (!$.isReady && this.selector) {
             var s = this.selector, c = this.context;
             $(function() {
@@ -88,7 +88,7 @@ $.fn.corner = function(o) {
             });
         }
         return this;
-	}
+    }
 
     o = (o||"").toLowerCase();
     var keep = /keep/.test(o);                       // keep borders?
@@ -156,7 +156,7 @@ $.fn.corner = function(o) {
                         ds.width = '100%';
                 }
                 else {
-                	ds.position = 'relative';
+                    ds.position = 'relative';
                     ds.margin = !bot ? '-'+pad.T+'px -'+pad.R+'px '+(pad.T-width)+'px -'+pad.L+'px' : 
                                         (pad.B-width)+'px -'+pad.R+'px -'+pad.B+'px -'+pad.L+'px';                
                 }
@@ -173,8 +173,8 @@ $.fn.corner = function(o) {
 };
 
 $.fn.uncorner = function() { 
-	$('div.jquery-corner', this).remove();
-	return this;
+    $('div.jquery-corner', this).remove();
+    return this;
 };
     
 })(jQuery);
