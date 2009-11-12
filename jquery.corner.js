@@ -1,7 +1,7 @@
 /*!
  * jQuery corner plugin: simple corner rounding
  * Examples and documentation at: http://jquery.malsup.com/corner/
- * version 2.01 (08-SEP-2009)
+ * version 2.02 (12-NOV-2009)
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
@@ -21,8 +21,9 @@
  */
 ;(function($) { 
 
-var moz = $.browser.mozilla && /gecko/i.test(navigator.userAgent);
-var webkit = $.browser.safari && $.browser.version >= 3;
+var ua = navigator.userAgent;
+var moz = $.browser.mozilla && /gecko/i.test(ua);
+var webkit = $.browser.safari && /Safari\/[5-9]/.test(ua);
 
 var expr = $.browser.msie && (function() {
     var div = document.createElement('div');
@@ -89,7 +90,8 @@ $.fn.corner = function(options) {
 
     return this.each(function(index){
 		var $this = $(this);
-		var o = (options || $this.attr($.fn.corner.defaults.metaAttr) || '').toLowerCase();
+		var o = [ options || '', $this.attr($.fn.corner.defaults.metaAttr) || ''].join(' ').toLowerCase();
+		//var o = (options || $this.attr($.fn.corner.defaults.metaAttr) || '').toLowerCase();
 		var keep = /keep/.test(o);                       // keep borders?
 		var cc = ((o.match(/cc:(#[0-9a-f]+)/)||[])[1]);  // corner color
 		var sc = ((o.match(/sc:(#[0-9a-f]+)/)||[])[1]);  // strip color
