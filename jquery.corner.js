@@ -1,7 +1,7 @@
 /*!
  * jQuery corner plugin: simple corner rounding
  * Examples and documentation at: http://jquery.malsup.com/corner/
- * version 2.02 (12-NOV-2009)
+ * version 2.03 (05-DEC-2009)
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
@@ -27,7 +27,7 @@ var webkit = $.browser.safari && /Safari\/[5-9]/.test(ua);
 
 var expr = $.browser.msie && (function() {
     var div = document.createElement('div');
-    try { div.style.setExpression('width','0+0'); }
+    try { div.style.setExpression('width','0+0'); div.style.removeExpression('width'); }
     catch(e) { return false; }
     return true;
 })();
