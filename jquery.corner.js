@@ -1,29 +1,30 @@
 /*!
  * jQuery corner plugin: simple corner rounding
  * Examples and documentation at: http://jquery.malsup.com/corner/
- * version 2.03 (05-DEC-2009)
+ * version 2.04 (11-FEB-2010)
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
+ * @author Dave Methvin (http://methvin.com/jquery/jq-corner.html)
+ * @author Mike Alsup   (http://jquery.malsup.com/corner/)
  */
 
 /**
  *  corner() takes a single string argument:  $('#myDiv').corner("effect corners width")
  *
  *  effect:  name of the effect to apply, such as round, bevel, notch, bite, etc (default is round). 
- *  corners: one or more of: top, bottom, tr, tl, br, or bl. 
- *           by default, all four corners are adorned. 
+ *  corners: one or more of: top, bottom, tr, tl, br, or bl.  (default is all corners)
  *  width:   width of the effect; in the case of rounded corners this is the radius. 
- *           specify this value using the px suffix such as 10px (and yes, it must be pixels).
- *
- * @author Dave Methvin (http://methvin.com/jquery/jq-corner.html)
- * @author Mike Alsup   (http://jquery.malsup.com/corner/)
+ *           specify this value using the px suffix such as 10px (yes, it must be pixels).
  */
 ;(function($) { 
 
 var ua = navigator.userAgent;
 var moz = $.browser.mozilla && /gecko/i.test(ua);
 var webkit = $.browser.safari && /Safari\/[5-9]/.test(ua);
+
+var mode = document.documentMode || 0;
+var noBottomFold = $.browser.msie && (($.browser.version < 8 && !mode) || mode < 8);
 
 var expr = $.browser.msie && (function() {
     var div = document.createElement('div');
@@ -67,11 +68,13 @@ function getWidth(fx, i, width) {
     case 'wicked': return Math.round(width*(Math.tan(i)));
     case 'long':   return Math.round(width*(Math.sqrt(i)));
     case 'sculpt': return Math.round(width*(Math.log((width-i-1),width)));
+	case 'dogfold':
     case 'dog':    return (i&1) ? (i+1) : width;
     case 'dog2':   return (i&2) ? (i+1) : width;
     case 'dog3':   return (i&3) ? (i+1) : width;
     case 'fray':   return (i%2)*width;
     case 'notch':  return width; 
+	case 'bevelfold':
     case 'bevel':  return i+1;
     }
 };
@@ -96,8 +99,9 @@ $.fn.corner = function(options) {
 		var cc = ((o.match(/cc:(#[0-9a-f]+)/)||[])[1]);  // corner color
 		var sc = ((o.match(/sc:(#[0-9a-f]+)/)||[])[1]);  // strip color
 		var width = parseInt((o.match(/(\d+)px/)||[])[1]) || 10; // corner width
-		var re = /round|bevel|notch|bite|cool|sharp|slide|jut|curl|tear|fray|wicked|sculpt|long|dog3|dog2|dog/;
+		var re = /round|bevelfold|bevel|notch|bite|cool|sharp|slide|jut|curl|tear|fray|wicked|sculpt|long|dog3|dog2|dogfold|dog/;
 		var fx = ((o.match(re)||['round'])[0]);
+		var fold = /dogfold|bevelfold/.test(o);
 		var edges = { T:0, B:1 };
 		var opts = {
 			TL:  /top|tl|left/.test(o),       TR:  /top|tr|right/.test(o),
@@ -182,6 +186,34 @@ $.fn.corner = function(options) {
                     e.style.borderWidth = '0 '+(opts[j+'R']?w:0)+'px 0 '+(opts[j+'L']?w:0)+'px';
                     bot ? d.appendChild(e) : d.insertBefore(e, d.firstChild);
                 }
+				
+				if (fold && $.support.boxModel) {
+					if (bot && noBottomFold) continue;
+					for (var c in opts) {
+						if (!opts[c]) continue;
+						if (bot && (c == 'TL' || c == 'TR')) continue;
+						if (!bot && (c == 'BL' || c == 'BR')) continue;
+						
+						var common = { position: 'absolute', border: 'none', margin: 0, padding: 0, overflow: 'hidden', backgroundColor: strip.style.borderColor };
+						var $horz = $('<div/>').css(common).css({ width: width + 'px', height: '1px' });
+						switch(c) {
+						case 'TL': $horz.css({ bottom: 0, left: 0 }); break;
+						case 'TR': $horz.css({ bottom: 0, right: 0 }); break;
+						case 'BL': $horz.css({ top: 0, left: 0 }); break;
+						case 'BR': $horz.css({ top: 0, right: 0 }); break;
+						}
+						d.appendChild($horz[0]);
+						
+						var $vert = $('<div/>').css(common).css({ top: 0, bottom: 0, width: '1px', height: width + 'px' });
+						switch(c) {
+						case 'TL': $vert.css({ left: width }); break;
+						case 'TR': $vert.css({ right: width }); break;
+						case 'BL': $vert.css({ left: width }); break;
+						case 'BR': $vert.css({ right: width }); break;
+						}
+						d.appendChild($vert[0]);
+					}
+				}
             }
         }
     });
