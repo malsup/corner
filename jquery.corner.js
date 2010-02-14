@@ -1,7 +1,7 @@
 /*!
  * jQuery corner plugin: simple corner rounding
  * Examples and documentation at: http://jquery.malsup.com/corner/
- * version 2.04 (11-FEB-2010)
+ * version 2.05 (13-FEB-2010)
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
@@ -94,7 +94,6 @@ $.fn.corner = function(options) {
     return this.each(function(index){
 		var $this = $(this);
 		var o = [ options || '', $this.attr($.fn.corner.defaults.metaAttr) || ''].join(' ').toLowerCase();
-		//var o = (options || $this.attr($.fn.corner.defaults.metaAttr) || '').toLowerCase();
 		var keep = /keep/.test(o);                       // keep borders?
 		var cc = ((o.match(/cc:(#[0-9a-f]+)/)||[])[1]);  // corner color
 		var sc = ((o.match(/sc:(#[0-9a-f]+)/)||[])[1]);  // strip color
@@ -124,10 +123,14 @@ $.fn.corner = function(options) {
 		}
 			
 		var strip = document.createElement('div');
-		strip.style.overflow = 'hidden';
-		strip.style.height = '1px';
-		strip.style.backgroundColor = sc || 'transparent';
-		strip.style.borderStyle = 'solid';
+		$(strip).css({
+			overflow: 'hidden',
+			height: '1px',
+			minHeight: '1px',
+			fontSize: '1px',
+			backgroundColor: sc || 'transparent',
+			borderStyle: 'solid'
+		});
 	
         var pad = {
             T: parseInt($.css(this,'paddingTop'))||0,     R: parseInt($.css(this,'paddingRight'))||0,
