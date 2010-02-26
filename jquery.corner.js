@@ -1,7 +1,7 @@
 /*!
  * jQuery corner plugin: simple corner rounding
  * Examples and documentation at: http://jquery.malsup.com/corner/
- * version 2.06 (16-FEB-2010)
+ * version 2.07 (23-FEB-2010)
  * Requires jQuery v1.3.2 or later
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
@@ -141,7 +141,7 @@ $.fn.corner = function(options) {
         if (typeof this.style.zoom != undefined) this.style.zoom = 1; // force 'hasLayout' in IE
         if (!keep) this.style.border = 'none';
         strip.style.borderColor = cc || gpc(this.parentNode);
-        var cssHeight = $.curCSS(this, 'height');
+        var cssHeight = $(this).outerHeight();
 
         for (var j in edges) {
             var bot = edges[j];
