@@ -1,7 +1,7 @@
 /*!
  * jQuery corner plugin: simple corner rounding
  * Examples and documentation at: http://jquery.malsup.com/corner/
- * version 2.10 (05-MAY-2010)
+ * version 2.11 (15-JUN-2010)
  * Requires jQuery v1.3.2 or later
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
@@ -25,6 +25,9 @@ var webkit = style['WebkitBorderRadius'] !== undefined;
 var radius = style['borderRadius'] !== undefined || style['BorderRadius'] !== undefined;
 var mode = document.documentMode || 0;
 var noBottomFold = $.browser.msie && (($.browser.version < 8 && !mode) || mode < 8);
+
+$.support = $.support || {};
+$.support.borderRadius = moz || webkit || radius; // so you can do:  if (!$.support.borderRadius) $('#myDiv').corner();
 
 var expr = $.browser.msie && (function() {
     var div = document.createElement('div');
