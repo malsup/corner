@@ -82,8 +82,8 @@ function getWidth(fx, i, width) {
     case 'notch':  return width; 
     case 'bevelfold':
     case 'bevel':  return i+1;
-    case 'steep':  console.log(i, i/2 + 1); return i/2 + 1;
-    case 'invsteep':console.log(i, (width-i)/2+1); return (width-i)/2+1;
+    case 'steep':  return i/2 + 1;
+    case 'invsteep':return (width-i)/2+1;
     }
 };
 
