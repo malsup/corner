@@ -1,7 +1,7 @@
 /*!
  * jQuery corner plugin: simple corner rounding
  * Examples and documentation at: http://jquery.malsup.com/corner/
- * version 2.11 (15-JUN-2010)
+ * version 2.12 (23-MAY-2011)
  * Requires jQuery v1.3.2 or later
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
@@ -40,7 +40,7 @@ function sz(el, p) {
     return parseInt($.css(el,p))||0; 
 };
 function hex2(s) {
-    var s = parseInt(s).toString(16);
+    s = parseInt(s).toString(16);
     return ( s.length < 2 ) ? '0'+s : s;
 };
 function gpc(node) {
@@ -64,7 +64,6 @@ function getWidth(fx, i, width) {
     switch(fx) {
     case 'round':  return Math.round(width*(1-Math.cos(Math.asin(i/width))));
     case 'cool':   return Math.round(width*(1+Math.cos(Math.asin(i/width))));
-    //case 'sharp':  return Math.round(width*(1-Math.cos(Math.acos(i/width))));
     case 'sharp':  return width-i;
     case 'bite':   return Math.round(width*(Math.cos(Math.asin((width-i-1)/width))));
     case 'slide':  return Math.round(width*(Math.atan2(i,width/i)));
