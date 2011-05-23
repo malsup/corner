@@ -64,7 +64,8 @@ function getWidth(fx, i, width) {
     switch(fx) {
     case 'round':  return Math.round(width*(1-Math.cos(Math.asin(i/width))));
     case 'cool':   return Math.round(width*(1+Math.cos(Math.asin(i/width))));
-    case 'sharp':  return Math.round(width*(1-Math.cos(Math.acos(i/width))));
+    //case 'sharp':  return Math.round(width*(1-Math.cos(Math.acos(i/width))));
+    case 'sharp':  return width-i;
     case 'bite':   return Math.round(width*(Math.cos(Math.asin((width-i-1)/width))));
     case 'slide':  return Math.round(width*(Math.atan2(i,width/i)));
     case 'jut':    return Math.round(width*(Math.atan2(width,(width-i-1))));
@@ -81,6 +82,8 @@ function getWidth(fx, i, width) {
     case 'notch':  return width; 
     case 'bevelfold':
     case 'bevel':  return i+1;
+    case 'steep':  return i/2 + 1;
+    case 'invsteep':return (width-i)/2+1;
     }
 };
 
@@ -104,7 +107,7 @@ $.fn.corner = function(options) {
             cc = ((o.match(/cc:(#[0-9a-f]+)/)||[])[1]),  // corner color
             sc = ((o.match(/sc:(#[0-9a-f]+)/)||[])[1]),  // strip color
             width = parseInt((o.match(/(\d+)px/)||[])[1]) || 10, // corner width
-            re = /round|bevelfold|bevel|notch|bite|cool|sharp|slide|jut|curl|tear|fray|wicked|sculpt|long|dog3|dog2|dogfold|dog/,
+            re = /round|bevelfold|bevel|notch|bite|cool|sharp|slide|jut|curl|tear|fray|wicked|sculpt|long|dog3|dog2|dogfold|dog|invsteep|steep/,
             fx = ((o.match(re)||['round'])[0]),
             fold = /dogfold|bevelfold/.test(o),
             edges = { T:0, B:1 },
