@@ -132,7 +132,9 @@ $.fn.corner = function(options) {
                 $this.css(radius ? 'border-bottom-right-radius' : moz ? '-moz-border-radius-bottomright' : '-webkit-border-bottom-right-radius', width + 'px');
             return;
         }
-            
+        
+			$this.css('-webkit-background-clip', 'padding-box'); // fixes stray-line bug on retina displays
+
         strip = document.createElement('div');
         $(strip).css({
             overflow: 'hidden',
