@@ -5,9 +5,9 @@
     "version": "2.13.0",
     "main": "./jquery.corner.js",
     "author": "malsup",
-    "repository": [
+    "repository": {
         "type": "git",
         "url": "git@github.com:malsup/corner.git"
-    ],
+    },
     "license": "GPL"
 }
