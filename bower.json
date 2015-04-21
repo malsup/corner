@@ -1,5 +1,5 @@
 {
-    "name": "My VLE2",
+    "name": "jquery.corner",
     "description": "Corner is a simple plugin for creating rounded (or other styled) corners on elements.",
     "homepage": "https://github.com/malsup/corner",
     "version": "2.13.0",
